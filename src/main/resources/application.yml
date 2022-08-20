@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgrespw
+    url: jdbc:postgresql://localhost:5432/house
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
+      function.definition: createHouse
+      bindings:
+        createHouse-in-0:
+          destination: house.create
+          content-type: application/json
+          group: house-create-group
+        createHouse-out-0:
+          destination: house.create
+          content-type: application/json
